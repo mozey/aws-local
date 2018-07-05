@@ -22,16 +22,16 @@ docker create --name=mysql -p 3306:3306 \
 mysql/mysql-server:5.6
 
 # S3: minio
-docker create --name=minio -d -p 9000:9000 \
+docker create --name=minio -p 9000:9000 \
 -e MINIO_ACCESS_KEY=asdf \
--e MINIO_SECRET_KEY=asdf \
+-e MINIO_SECRET_KEY=asdfasdf \
 -v ${HOME}/.aws-local/minio/data:/data \
 minio/minio server /data
 
 # SES: aws-ses-local
 docker create --name=aws-ses-local -p 9001:9001 \
--v ${HOME}/.aws-local/aws-ses-local/data:/data \
-jdelibas/aws-ses-local --outputDir /data
+-v ${HOME}/.aws-local/aws-ses-local/data:/aws-ses-local/output \
+jdelibas/aws-ses-local
 
 # SQS & SNS: goaws
 docker create --name goaws -p 4100:4100 pafortin/goaws

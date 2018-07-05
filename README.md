@@ -19,18 +19,20 @@ Get aws-local
 
 Run the install script
 
-    $GOPATH/src/github.com/mozey/aws-local/install.sh
+    ${GOPATH}/src/github.com/mozey/aws-local/install.sh
     
 Persistent data is easily accessible from the host
 
-    ls ~/.aws-local
+    tree -L 2 ~/.aws-local
 
     
 # Test
 
 Start local services
 
-    $GOPATH/src/github.com/mozey/aws-local/start.sh
+    ${GOPATH}/src/github.com/mozey/aws-local/start.sh
+    
+    docker ps
     
 go test with colors
 
@@ -38,7 +40,7 @@ go test with colors
 
 Run examples
     
-    gotest -v $GOPATH/src/github.com/mozey/aws-local/...
+    gotest -v ${GOPATH}/src/github.com/mozey/aws-local/...
     
     
 # Docker Images
@@ -63,13 +65,27 @@ Writes email html, text and headers to file
 
 #### [SQS & SNS: goaws](https://github.com/p4tin/goaws)
 
-
-# AWS command line
-
-[Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+[Persisting data](https://github.com/p4tin/goaws/issues/169)
 
 
 # Misc
+
+### AWS CLI
+
+[Install](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+
+Setup credentials
+
+    aws configure --profile aws-local
+    # AWS Access Key ID [None]: asdf
+    # AWS Secret Access Key [None]: asdfasdf
+    # Default region name [None]: eu-west-1
+    # Default output format [None]: json
+
+Select profile
+
+    export AWS_PROFILE=aws-local
+
 
 ### Docker
 
@@ -94,7 +110,7 @@ Shell
     open http://localhost:8000/shell
 
 
-### MySQL 
+### RDS: MySQL 
 
 Install client on macOS using Homebrew
     
@@ -102,11 +118,7 @@ Install client on macOS using Homebrew
     
     vi ~/.profile
     # PATH=$PATH:/Applications/MySQLWorkbench.app/Contents/MacOS
-    
-View logs (if redirected to stderr with MYSQL_LOG_CONSOLE)
-    
-    docker logs
-    
+        
 Connect with client
 
     # This works, but how to run scripts with `source` cmd?
@@ -114,9 +126,41 @@ Connect with client
     
     mysql --host=127.0.0.1 --port=3306 -u root -p
     
+View logs (if redirected to stderr with MYSQL_LOG_CONSOLE)
     
-### Minio
+    docker logs mysql
+    
+    
+### S3: Minio
+
+Create bucket
+
+    aws --endpoint-url=http://127.0.0.1:9000 s3 mb s3://aws-local
 
 List buckets
-
+    
     aws --endpoint-url=http://127.0.0.1:9000 s3 ls
+    
+    
+### SES: aws-ses-local
+
+Send email
+
+    aws --endpoint-url http://127.0.0.1:9001 ses send-email \
+    --from sender@example.com --destination file://ses/destination.json \
+    --message file://ses/message.json
+
+List results
+
+    tree ${HOME}/.aws-local/aws-ses-local/data
+    
+    
+### SQS & SNS: Goaws
+
+Create queue
+
+    aws --endpoint-url http://127.0.0.1:4100 sqs create-queue --queue-name aws-local
+    
+List queues
+
+    aws --endpoint-url http://127.0.0.1:4100 sqs list-queues

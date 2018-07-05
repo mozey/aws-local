@@ -1,2 +1,16 @@
 #!/usr/bin/env bash
-#docker run -d -p 8000:8000 dwmkerr/dynamodb
+
+# DynamoDB
+docker start dynamodb
+
+# RDS: MySQL
+docker start mysql
+
+# S3: minio
+docker start minio
+
+# SES: aws-ses-local
+docker start aws-ses-local
+
+# SQS & SNS: goaws
+docker start goaws
