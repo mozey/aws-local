@@ -8,6 +8,7 @@ chmod u+x ${DIR}/pull.sh
 chmod u+x ${DIR}/aws_local.sh
 chmod u+x ${DIR}/containers.sh
 chmod u+x ${DIR}/start.sh
+chmod u+x ${DIR}/stop.sh
 
 # Create containers,
 # downloading the images might take a while

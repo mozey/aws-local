@@ -38,7 +38,7 @@ go test with colors
 
     go get -u github.com/rakyll/gotest
 
-Run examples
+TODO Run examples
     
     gotest -v ${GOPATH}/src/github.com/mozey/aws-local/...
     
