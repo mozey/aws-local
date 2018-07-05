@@ -46,10 +46,13 @@ Run examples
 # Docker Images
 
 #### [DynamoDB](https://github.com/dwmkerr/docker-dynamodb)
+
+Supports all of the commandline parameters in the 
+[DynamoDB Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
     
 #### [EC2: Ubuntu](https://hub.docker.com/_/ubuntu/)
     
-### [Lambda](https://hub.docker.com/r/lambci/lambda/)
+#### [Lambda](https://hub.docker.com/r/lambci/lambda/)
 
 #### [RDS: Postgres](https://hub.docker.com/_/postgres)
 
@@ -108,6 +111,31 @@ persistent volumes should be mapped from host
 Shell
 
     open http://localhost:8000/shell
+    
+Create table
+
+    aws --endpoint-url http://127.0.0.1:8000 dynamodb create-table \
+    --table-name aws-local --attribute-definitions AttributeName=Artist,AttributeType=S \
+    --key-schema AttributeName=Artist,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+    
+List tables
+
+    aws --endpoint-url http://localhost:8000 dynamodb list-tables
+    
+Add an item
+
+    aws dynamodb --endpoint-url http://localhost:8000 put-item \
+    --table-name aws-local --item file://dynamodb/item.json \
+    --return-consumed-capacity TOTAL
+    
+Inspect db
+
+    sqlite3 ${HOME}/.aws-local/dynamodb/data/shared-local-instance.db
+    
+    .tables
+    
+    select * from `aws-local`;
 
 
 ### RDS: MySQL 
@@ -140,6 +168,16 @@ Create bucket
 List buckets
     
     aws --endpoint-url=http://127.0.0.1:9000 s3 ls
+    
+Copy local file to a bucket
+
+    aws --endpoint-url=http://127.0.0.1:9000 s3 cp s3/test.json s3://aws-local/test.json
+    
+Data is persisted on the host
+
+    tree ${HOME}/.aws-local/minio
+    
+    cat ${HOME}/.aws-local/minio/data/aws-local/test.json
     
     
 ### SES: aws-ses-local

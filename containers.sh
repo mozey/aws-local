@@ -7,7 +7,7 @@ docker create --name=dynamodb -p 8000:8000 \
 -v ${HOME}/.aws-local/dynamodb/data:/data \
 dwmkerr/dynamodb -dbPath /data -sharedDb
 
-# Ubuntu
+# EC2: Ubuntu
 # TODO
 
 # Lambda
