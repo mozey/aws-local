@@ -51,6 +51,8 @@ Supports all of the commandline parameters in the
 [DynamoDB Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
     
 #### [EC2: Ubuntu](https://hub.docker.com/_/ubuntu/)
+
+#### [ES](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
     
 #### [Lambda](https://hub.docker.com/r/lambci/lambda/)
 
@@ -152,7 +154,7 @@ Connect with client
     # This works, but how to run scripts with `source` cmd?
     docker exec -it mysql mysql -uroot -p
     
-    mysql --host=127.0.0.1 --port=3306 -u root -p
+    mysql --host=127.0.0.1 --port=3306 -u root -p --binary-mode
     
 View logs (if redirected to stderr with MYSQL_LOG_CONSOLE)
     
