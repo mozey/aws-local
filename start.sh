@@ -3,6 +3,9 @@
 # DynamoDB
 docker start dynamodb
 
+# ES
+docker start elastic
+
 # RDS: MySQL
 docker start mysql
 

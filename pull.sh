@@ -5,9 +5,12 @@
 # DynamoDB
 docker pull dwmkerr/dynamodb
 
-# EC2
+# EC2: LAMP
 # Ubuntu 16.04 is current LTS version
-docker pull ubuntu:16.04
+#docker pull ubuntu:16.04
+
+# ES
+docker pull elasticsearch:5.6.10
 
 # Lambda
 docker pull lambci/lambda

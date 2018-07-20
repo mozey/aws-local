@@ -10,8 +10,11 @@ dwmkerr/dynamodb -dbPath /data -sharedDb
 # EC2: Ubuntu
 # TODO
 
-# Lambda
-# TODO
+# ES
+# Port 9300 not used, but keep it free in case
+docker create --name=elastic -p 9200:9200 \
+-v ${HOME}/.aws-local/elastic/data:/usr/share/elasticsearch/data \
+elasticsearch:5.6.10
 
 # RDS: MySQL
 docker create --name=mysql -p 3306:3306 \
@@ -22,7 +25,8 @@ docker create --name=mysql -p 3306:3306 \
 mysql/mysql-server:5.6
 
 # S3: minio
-docker create --name=minio -p 9000:9000 \
+# Port 9000 is used for PHP xdebug
+docker create --name=minio -p 9002:9000 \
 -e MINIO_ACCESS_KEY=asdf \
 -e MINIO_SECRET_KEY=asdfasdf \
 -v ${HOME}/.aws-local/minio/data:/data \

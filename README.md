@@ -1,8 +1,18 @@
 # aws-local
 
-Instructions to run local AWS in Docker with golang examples
+Instructions to run local AWS in Docker with golang examples.
 
 Alternatively use [localstack](https://github.com/localstack/localstack)
+
+This repos is not meant to be a configuration tool like
+[docker compose](https://docs.docker.com/compose),
+or an orchestration tool like
+[kubernetes](https://kubernetes.io/)
+
+It is a collection of simple bash scripts to setup a local dev environment,
+that replicates popular AWS services, using standard docker commands.
+
+It is also a cookbook of golang examples demonstrating how to use the services
 
 
 # Install
@@ -52,7 +62,7 @@ Supports all of the commandline parameters in the
     
 #### [EC2: Ubuntu](https://hub.docker.com/_/ubuntu/)
 
-#### [ES](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+#### [ES](https://hub.docker.com/_/elasticsearch/)
     
 #### [Lambda](https://hub.docker.com/r/lambci/lambda/)
 
@@ -106,6 +116,8 @@ Remove all containers,
 persistent volumes should be mapped from host 
 
     docker rm $(docker ps -q -a)
+    
+    docker rm $(docker ps -q -a -f name=elastic)
 
 
 ### DynamoDB 
@@ -138,6 +150,15 @@ Inspect db
     .tables
     
     select * from `aws-local`;
+    
+    
+### ES
+
+Install [httpie](https://httpie.org/)
+
+Get version
+
+    http http://localhost:9200
 
 
 ### RDS: MySQL 
