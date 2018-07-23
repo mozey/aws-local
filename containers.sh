@@ -7,9 +7,6 @@ docker create --name=dynamodb -p 8000:8000 \
 -v ${HOME}/.aws-local/dynamodb/data:/data \
 dwmkerr/dynamodb -dbPath /data -sharedDb
 
-# EC2: Ubuntu
-# TODO
-
 # ES
 # Port 9300 not used, but keep it free in case
 docker create --name=elastic -p 9200:9200 \

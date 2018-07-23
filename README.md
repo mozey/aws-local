@@ -40,9 +40,14 @@ Persistent data is easily accessible from the host
 
 Start local services
 
-    ${GOPATH}/src/github.com/mozey/aws-local/start.sh
+    cp ${GOPATH}/src/github.com/mozey/aws-local/start.sample.sh \
+    ${GOPATH}/src/github.com/mozey/aws-local/user/start.sh
+    
+    ${GOPATH}/src/github.com/mozey/aws-local/user/start.sh
     
     docker ps
+    
+    docker stats
     
 go test with colors
 
