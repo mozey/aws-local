@@ -35,6 +35,10 @@ Persistent data is easily accessible from the host
 
     tree -L 2 ~/.aws-local
 
+Use the container name to get a remote shell
+
+    ${GOPATH}/src/github.com/mozey/aws-local/shell.sh goaws
+
     
 # Test
 
