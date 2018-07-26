@@ -3,6 +3,9 @@
 # DynamoDB
 docker stop dynamodb
 
+# ES
+docker stop elastic
+
 # RDS: MySQL
 docker stop mysql
 
