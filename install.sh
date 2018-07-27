@@ -7,8 +7,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 chmod u+x ${DIR}/pull.sh
 chmod u+x ${DIR}/aws_local.sh
 chmod u+x ${DIR}/containers.sh
-chmod u+x ${DIR}/start.sh
-chmod u+x ${DIR}/stop.sh
+chmod u+x ${DIR}/user/*.sh
 
 # Create containers,
 # downloading the images might take a while
