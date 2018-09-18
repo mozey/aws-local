@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 EXPECTED_ARGS=1
-E_BADARGS=100
 
 if [ $# -ne ${EXPECTED_ARGS} ]
 then
@@ -12,7 +11,7 @@ then
     echo ""
     echo "Example: "
     echo "  `basename $0` "
-    exit ${E_BADARGS}
+    exit 1
 fi
 
 AWS_LOCAL_NAME="$1"

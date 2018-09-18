@@ -234,3 +234,23 @@ Create queue
 List queues
 
     aws --endpoint-url http://127.0.0.1:4100 sqs list-queues
+
+
+### Local lambda
+
+Using [lambci/docker-lambda](https://github.com/lambci/docker-lambda),
+images and test runners that replicate the live AWS Lambda environment
+
+Run example code
+
+    git clone https://github.com/lambci/docker-lambda.git
+
+    cd docker-lambda/examples/go1.x
+    
+    # Compile
+    docker run --rm -v "$PWD":/go/src/handler lambci/lambda:build-go1.x \
+    sh -c 'dep ensure && go build handler.go'
+    
+    # Invoke
+    docker run --rm -v "$PWD":/var/task lambci/lambda:go1.x \
+    handler '{"Records": []}'
