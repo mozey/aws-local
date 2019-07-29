@@ -3,7 +3,7 @@
 # Make sure images are available locally and up to date
 
 # DynamoDB
-docker pull amazon/dynamodb-local
+docker pull dwmkerr/dynamodb
 
 # EC2: LAMP
 # Ubuntu 16.04 is current LTS version

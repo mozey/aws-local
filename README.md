@@ -64,9 +64,11 @@ TODO Run examples
     
 # Docker Images
 
-#### [DynamoDB Official](https://hub.docker.com/r/amazon/dynamodb-local/)
 
 #### [DynamoDB](https://github.com/dwmkerr/docker-dynamodb)
+
+#### [DynamoDB Official](https://hub.docker.com/r/amazon/dynamodb-local/)
+Does not support all the command line parameters?
 
 Supports all of the commandline parameters in the 
 [DynamoDB Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
