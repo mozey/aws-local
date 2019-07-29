@@ -144,7 +144,7 @@ Shell
 Create table
 
     aws --endpoint-url http://127.0.0.1:8000 dynamodb create-table \
-    --table-name aws-local --attribute-definitions AttributeName=Artist,AttributeType=S \
+    --table-name Music --attribute-definitions AttributeName=Artist,AttributeType=S \
     --key-schema AttributeName=Artist,KeyType=HASH \
     --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
     
@@ -155,7 +155,7 @@ List tables
 Add an item
 
     aws dynamodb --endpoint-url http://localhost:8000 put-item \
-    --table-name aws-local --item file://dynamodb/item.json \
+    --table-name Music --item file://dynamodb/item.json \
     --return-consumed-capacity TOTAL
     
 Inspect db
@@ -164,7 +164,7 @@ Inspect db
     
     .tables
     
-    select * from `aws-local`;
+    select * from Music;
     
     
 ### ES
