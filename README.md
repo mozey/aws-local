@@ -64,12 +64,16 @@ TODO Run examples
     
 # Docker Images
 
+#### [DynamoDB Official](https://hub.docker.com/r/amazon/dynamodb-local/)
+
 #### [DynamoDB](https://github.com/dwmkerr/docker-dynamodb)
 
 Supports all of the commandline parameters in the 
 [DynamoDB Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
     
 #### [EC2: Ubuntu](https://hub.docker.com/_/ubuntu/)
+
+#### [OpenDistro for ES](https://opendistro.github.io/for-elasticsearch-docs/docs/install/docker/)
 
 #### [ES](https://hub.docker.com/_/elasticsearch/)
     

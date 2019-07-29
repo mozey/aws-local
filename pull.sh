@@ -3,7 +3,7 @@
 # Make sure images are available locally and up to date
 
 # DynamoDB
-docker pull dwmkerr/dynamodb
+docker pull amazon/dynamodb-local
 
 # EC2: LAMP
 # Ubuntu 16.04 is current LTS version
@@ -11,6 +11,8 @@ docker pull dwmkerr/dynamodb
 
 # ES
 docker pull elasticsearch:5.6.10
+# Migrate to using OpenDistro for ES
+docker pull amazon/opendistro-for-elasticsearch:1.0.2
 
 # Lambda
 docker pull lambci/lambda

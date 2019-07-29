@@ -9,11 +9,15 @@ docker create --name=dynamodb -p 8000:8000 \
 dwmkerr/dynamodb -dbPath /data -sharedDb
 
 # ES
-# Port 9300 not used, but keep it free in case
 docker rm elastic
 docker create --name=elastic -p 9200:9200 \
 -v ${HOME}/.aws-local/elastic/data:/usr/share/elasticsearch/data \
 elasticsearch:5.6.10
+
+docker rm opendistro
+docker create --name=opendistro -p 9600:9600 \
+-v ${HOME}/.aws-local/opendistro/data:/usr/share/elasticsearch/data \
+amazon/opendistro-for-elasticsearch:1.0.2
 
 # RDS: MySQL
 docker rm mysql

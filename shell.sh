@@ -2,7 +2,7 @@
 
 EXPECTED_ARGS=1
 
-if [ $# -ne ${EXPECTED_ARGS} ]
+if [[ $# -ne ${EXPECTED_ARGS} ]]
 then
     echo "Get a shell in the specified container"
     echo ""
@@ -20,7 +20,7 @@ AWS_LOCAL_COLS=$(tput cols)
 AWS_LOCAL_LINES=$(tput lines)
 
 docker exec -it ${AWS_LOCAL_NAME} /bin/bash --version
-if [ $? -eq "0" ]
+if [[ $? -eq "0" ]]
 then
     # Use bash if available
     docker exec -it ${AWS_LOCAL_NAME} /bin/bash \
