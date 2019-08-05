@@ -12,7 +12,7 @@ docker pull dwmkerr/dynamodb
 # ES
 docker pull elasticsearch:5.6.10
 # Migrate to using OpenDistro for ES
-docker pull amazon/opendistro-for-elasticsearch:1.0.2
+docker pull amazon/opendistro-for-elasticsearch:1.1.0
 
 # Lambda
 docker pull lambci/lambda

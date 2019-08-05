@@ -174,7 +174,18 @@ Install [httpie](https://httpie.org/)
 Get version
 
     http http://localhost:9200
+    
+    
+### OpenDistro
 
+[Installation instructions](https://opendistro.github.io/for-elasticsearch-docs/docs/install/docker/)
+
+    docker run -p 9200:9200 -e "discovery.type=single-node" amazon/opendistro-for-elasticsearch:1.1.0
+    
+    curl -XGET --insecure https://localhost:9200 -u admin:admin
+
+    http https://admin:admin@localhost:9200 --verify=no
+    
 
 ### RDS: MySQL 
 

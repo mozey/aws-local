@@ -14,10 +14,13 @@ docker create --name=elastic -p 9200:9200 \
 -v ${HOME}/.aws-local/elastic/data:/usr/share/elasticsearch/data \
 elasticsearch:5.6.10
 
+# ES: OpenDistro
+# TODO Only works for port 9200?
 docker rm opendistro
-docker create --name=opendistro -p 9600:9600 \
+docker create --name=opendistro -p 9200:9200 \
 -v ${HOME}/.aws-local/opendistro/data:/usr/share/elasticsearch/data \
-amazon/opendistro-for-elasticsearch:1.0.2
+-e "discovery.type=single-node" \
+amazon/opendistro-for-elasticsearch:1.1.0
 
 # RDS: MySQL
 docker rm mysql
