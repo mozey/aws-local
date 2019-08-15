@@ -251,6 +251,16 @@ Create queue
 List queues
 
     aws --endpoint-url http://127.0.0.1:4100 sqs list-queues
+    
+Receive messages
+
+    aws --endpoint-url http://127.0.0.1:4100 sqs receive-message --queue-url http://127.0.0.1:4100/queue/my-q.fifo
+    
+Delete message
+
+    aws --endpoint-url http://127.0.0.1:4100 sqs delete-message \
+    --queue-url http://127.0.0.1:4100/queue/my-q.fifo
+    --receipt-handle xxx
 
 
 ### Local lambda
