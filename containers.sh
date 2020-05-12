@@ -3,24 +3,24 @@
 # Create containers
 
 # DynamoDB
-docker rm dynamodb
-docker create --name=dynamodb -p 8000:8000 \
--v ${HOME}/.aws-local/dynamodb/data:/data \
-dwmkerr/dynamodb -dbPath /data -sharedDb
+#docker rm dynamodb
+#docker create --name=dynamodb -p 8000:8000 \
+#-v ${HOME}/.aws-local/dynamodb/data:/data \
+#dwmkerr/dynamodb -dbPath /data -sharedDb
 
 # ES
-docker rm elastic
-docker create --name=elastic -p 9200:9200 \
--v ${HOME}/.aws-local/elastic/data:/usr/share/elasticsearch/data \
-elasticsearch:5.6.10
+#docker rm elastic
+#docker create --name=elastic -p 9200:9200 \
+#-v ${HOME}/.aws-local/elastic/data:/usr/share/elasticsearch/data \
+#elasticsearch:5.6.10
 
 # ES: OpenDistro
 # TODO Only works for port 9200?
 docker rm opendistro
 docker create --name=opendistro -p 9200:9200 \
--v ${HOME}/.aws-local/opendistro/data:/usr/share/elasticsearch/data \
+-v ${HOME}/.aws-local/opendistro/data:/usr/share/elasticsearch/data:cached \
 -e "discovery.type=single-node" \
-amazon/opendistro-for-elasticsearch:1.1.0
+amazon/opendistro-for-elasticsearch:1.4.0
 
 # RDS: MySQL
 docker rm mysql
@@ -37,16 +37,19 @@ docker rm minio
 docker create --name=minio -p 9002:9000 \
 -e MINIO_ACCESS_KEY=asdf \
 -e MINIO_SECRET_KEY=asdfasdf \
--v ${HOME}/.aws-local/minio/data:/data \
+-v ${HOME}/.aws-local/minio/data:/data:cached \
 minio/minio server /data
 
 # SES: aws-ses-local
 docker rm aws-ses-local
 docker create --name=aws-ses-local -p 9001:9001 \
--v ${HOME}/.aws-local/aws-ses-local/data:/aws-ses-local/output \
+-v ${HOME}/.aws-local/aws-ses-local/data:/aws-ses-local/output:cached \
 jdelibas/aws-ses-local
 
 # SQS & SNS: goaws
 docker rm goaws
 docker create --name goaws -p 4100:4100 pafortin/goaws
 
+# httpbin
+docker rm httpbin
+docker create --name httpbin -p 9090:80 kennethreitz/httpbin
