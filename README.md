@@ -186,6 +186,26 @@ Get version
 
     http https://admin:admin@localhost:9200 --verify=no
     
+    
+### Kibana
+
+    ./kibana.sh reset
+    
+    ./kibana.sh up
+    
+    docker ps
+    
+    docker logs opendistro
+    # Run above until you see "Node ... initialized"
+    
+    http https://admin:admin@localhost:9200 --verify=no
+    
+    http http://localhost:5601
+    
+    docker stats
+    
+    ./kibana.sh down
+    
 
 ### RDS: MySQL 
 
