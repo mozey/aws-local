@@ -330,3 +330,27 @@ docker run --rm -v "$PWD":/var/task lambci/lambda:go1.x \
 handler '{"Records": []}'
 ```
 
+
+### Kafka
+
+#### [kafkactl](https://github.com/deviceinsight/kafkactl)
+
+Install
+```bash
+brew tap deviceinsight/packages
+brew install deviceinsight/packages/kafkactl
+```
+
+[Review config](https://github.com/deviceinsight/kafkactl#create-a-config-file)
+```bash
+kafkactl config view
+```
+
+Get info about current context
+```bash
+kafkactl get brokers
+kafkactl get topics
+```
+
+
+
