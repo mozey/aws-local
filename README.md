@@ -24,43 +24,49 @@ It is also a cookbook of golang examples demonstrating how to use the services
 ### Create docker containers
 
 Get aws-local
-
-    go get github.com/mozey/aws-local
+```bash
+go get github.com/mozey/aws-local
+```
 
 Run the install script
+```bash
+${GOPATH}/src/github.com/mozey/aws-local/install.sh
+```
 
-    ${GOPATH}/src/github.com/mozey/aws-local/install.sh
-    
 Persistent data is easily accessible from the host
-
-    tree -L 2 ~/.aws-local
+```bash
+tree -L 2 ~/.aws-local
+```
 
 Use the container name to get a remote shell
-
-    ${GOPATH}/src/github.com/mozey/aws-local/shell.sh goaws
+```bash
+${GOPATH}/src/github.com/mozey/aws-local/shell.sh goaws
+```
 
     
 # Test
 
 Start local services
+```bash
+cp ${GOPATH}/src/github.com/mozey/aws-local/start.sample.sh \
+${GOPATH}/src/github.com/mozey/aws-local/user/start.sh
 
-    cp ${GOPATH}/src/github.com/mozey/aws-local/start.sample.sh \
-    ${GOPATH}/src/github.com/mozey/aws-local/user/start.sh
-    
-    ${GOPATH}/src/github.com/mozey/aws-local/user/start.sh
-    
-    docker ps
-    
-    docker stats
+${GOPATH}/src/github.com/mozey/aws-local/user/start.sh
+
+docker ps
+
+docker stats
+```
     
 go test with colors
-
-    go get -u github.com/rakyll/gotest
+```bash
+go get -u github.com/rakyll/gotest
+```
 
 TODO Run examples
-    
-    gotest -v ${GOPATH}/src/github.com/mozey/aws-local/...
-    
+```bash 
+gotest -v ${GOPATH}/src/github.com/mozey/aws-local/...
+```
     
 # Docker Images
 
@@ -105,199 +111,222 @@ Writes email html, text and headers to file
 [Install](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
 Setup credentials
-
-    aws configure --profile aws-local
-    # AWS Access Key ID [None]: asdf
-    # AWS Secret Access Key [None]: asdfasdf
-    # Default region name [None]: eu-west-1
-    # Default output format [None]: json
+```bash
+aws configure --profile aws-local
+# AWS Access Key ID [None]: asdf
+# AWS Secret Access Key [None]: asdfasdf
+# Default region name [None]: eu-west-1
+# Default output format [None]: json
+```
 
 Select profile
-
-    export AWS_PROFILE=aws-local
+```bash
+export AWS_PROFILE=aws-local
+```
 
 
 ### Docker
 
 List images
-
-    docker image ls
+```bash
+docker image ls
+```
 
 Stop all running containers
-
-    docker stop $(docker ps -q)
+```bash
+docker stop $(docker ps -q)
+```
     
 Remove all containers,
 persistent volumes should be mapped from host 
-
-    docker rm $(docker ps -q -a)
+```bash
+docker rm $(docker ps -q -a)
     
-    docker rm $(docker ps -q -a -f name=elastic)
+docker rm $(docker ps -q -a -f name=elastic)
+```
 
 
 ### DynamoDB 
 
 Shell
-
-    open http://localhost:8000/shell
+```bash
+open http://localhost:8000/shell
     
 Create table
-
-    aws --endpoint-url http://127.0.0.1:8000 dynamodb create-table \
-    --table-name Music --attribute-definitions AttributeName=Artist,AttributeType=S \
-    --key-schema AttributeName=Artist,KeyType=HASH \
-    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+```bash
+aws --endpoint-url http://127.0.0.1:8000 dynamodb create-table \
+--table-name Music --attribute-definitions AttributeName=Artist,AttributeType=S \
+--key-schema AttributeName=Artist,KeyType=HASH \
+--provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+```
     
 List tables
-
-    aws --endpoint-url http://localhost:8000 dynamodb list-tables
+```bash
+aws --endpoint-url http://localhost:8000 dynamodb list-tables
+```
     
 Add an item
-
-    aws dynamodb --endpoint-url http://localhost:8000 put-item \
-    --table-name Music --item file://dynamodb/item.json \
-    --return-consumed-capacity TOTAL
+```bash
+aws dynamodb --endpoint-url http://localhost:8000 put-item \
+--table-name Music --item file://dynamodb/item.json \
+--return-consumed-capacity TOTAL
+```
     
 Inspect db
+```bash
+sqlite3 ${HOME}/.aws-local/dynamodb/data/shared-local-instance.db
 
-    sqlite3 ${HOME}/.aws-local/dynamodb/data/shared-local-instance.db
-    
-    .tables
-    
-    select * from Music;
-    
+.tables
+
+select * from Music;
+```
     
 ### ES
 
 Install [httpie](https://httpie.org/)
 
 Get version
-
-    http http://localhost:9200
-    
+```bash
+http http://localhost:9200
+```
     
 ### OpenDistro
 
 [Installation instructions](https://opendistro.github.io/for-elasticsearch-docs/docs/install/docker/)
+```bash
+docker run -p 9200:9200 -e "discovery.type=single-node" amazon/opendistro-for-elasticsearch:1.1.0
 
-    docker run -p 9200:9200 -e "discovery.type=single-node" amazon/opendistro-for-elasticsearch:1.1.0
-    
-    curl -XGET --insecure https://localhost:9200 -u admin:admin
+curl -XGET --insecure https://localhost:9200 -u admin:admin
 
-    http https://admin:admin@localhost:9200 --verify=no
-    
+http https://admin:admin@localhost:9200 --verify=no
+```
     
 ### Kibana
+```bash
+./kibana.sh reset
 
-    ./kibana.sh reset
-    
-    ./kibana.sh up
-    
-    docker ps
-    
-    docker logs opendistro
-    # Run above until you see "Node ... initialized"
-    
-    http https://admin:admin@localhost:9200 --verify=no
-    
-    http http://localhost:5601
-    
-    docker stats
-    
-    ./kibana.sh down
-    
+./kibana.sh up
+
+docker ps
+
+docker logs opendistro
+# Run above until you see "Node ... initialized"
+
+http https://admin:admin@localhost:9200 --verify=no
+
+http http://localhost:5601
+
+docker stats
+
+./kibana.sh down
+```
 
 ### RDS: MySQL 
 
 Install client on macOS using Homebrew
-    
-    brew cask install mysqlworkbench
-    
-    vi ~/.profile
-    # PATH=$PATH:/Applications/MySQLWorkbench.app/Contents/MacOS
+```bash
+brew cask install mysqlworkbench
+
+vi ~/.profile
+# PATH=$PATH:/Applications/MySQLWorkbench.app/Contents/MacOS
+```
         
 Connect with client
+```bash
+# This works, but how to run scripts with `source` cmd?
+docker exec -it mysql mysql -uroot -p
 
-    # This works, but how to run scripts with `source` cmd?
-    docker exec -it mysql mysql -uroot -p
-    
-    mysql --host=127.0.0.1 --port=3306 -u root -p --binary-mode
+mysql --host=127.0.0.1 --port=3306 -u root -p --binary-mode
+```
     
 View logs (if redirected to stderr with MYSQL_LOG_CONSOLE)
-    
-    docker logs mysql
-    
+```bash    
+docker logs mysql
+```
     
 ### S3: Minio
 
 Create bucket
-
-    aws --endpoint-url=http://127.0.0.1:9000 s3 mb s3://aws-local
+```bash
+aws --endpoint-url=http://127.0.0.1:9000 s3 mb s3://aws-local
+```
 
 List buckets
-    
-    aws --endpoint-url=http://127.0.0.1:9000 s3 ls
-    
-Copy local file to a bucket
+```bash 
+aws --endpoint-url=http://127.0.0.1:9000 s3 ls
+```
 
-    aws --endpoint-url=http://127.0.0.1:9000 s3 cp s3/test.json s3://aws-local/test.json
+Copy local file to a bucket
+```bash
+aws --endpoint-url=http://127.0.0.1:9000 s3 cp s3/test.json s3://aws-local/test.json
+```
     
 Data is persisted on the host
+```bash
+tree ${HOME}/.aws-local/minio
 
-    tree ${HOME}/.aws-local/minio
-    
-    cat ${HOME}/.aws-local/minio/data/aws-local/test.json
-    
+cat ${HOME}/.aws-local/minio/data/aws-local/test.json
+```
+
     
 ### SES: aws-ses-local
 
 Send email
-
-    aws --endpoint-url http://127.0.0.1:9001 ses send-email \
-    --from sender@example.com --destination file://ses/destination.json \
-    --message file://ses/message.json
+```bash
+aws --endpoint-url http://127.0.0.1:9001 ses send-email \
+--from sender@example.com --destination file://ses/destination.json \
+--message file://ses/message.json
+```
 
 List results
+```bash
+tree ${HOME}/.aws-local/aws-ses-local/data
+```
 
-    tree ${HOME}/.aws-local/aws-ses-local/data
-    
     
 ### SQS & SNS: Goaws
 
 Create queue
-
-    aws --endpoint-url http://127.0.0.1:4100 sqs create-queue --queue-name aws-local
+```bash
+aws --endpoint-url http://127.0.0.1:4100 sqs create-queue --queue-name aws-local
+```
     
 List queues
-
-    aws --endpoint-url http://127.0.0.1:4100 sqs list-queues
+```bash
+aws --endpoint-url http://127.0.0.1:4100 sqs list-queues
+```
     
 Receive messages
-
-    aws --endpoint-url http://127.0.0.1:4100 sqs receive-message --queue-url http://127.0.0.1:4100/queue/my-q.fifo
+```bash
+aws --endpoint-url http://127.0.0.1:4100 sqs receive-message --queue-url http://127.0.0.1:4100/queue/my-q.fifo
+```
     
 Delete message
-
-    aws --endpoint-url http://127.0.0.1:4100 sqs delete-message \
-    --queue-url http://127.0.0.1:4100/queue/my-q.fifo
-    --receipt-handle xxx
-
+```bash
+aws --endpoint-url http://127.0.0.1:4100 sqs delete-message \
+--queue-url http://127.0.0.1:4100/queue/my-q.fifo
+--receipt-handle xxx
+```
 
 ### Local lambda
+
+**TODO** Create example of running lambda functions as local webserver (see [apex/gateway](https://github.com/apex/gateway)) and proxy requests
 
 Using [lambci/docker-lambda](https://github.com/lambci/docker-lambda),
 images and test runners that replicate the live AWS Lambda environment
 
 Run example code
+```bash
+git clone https://github.com/lambci/docker-lambda.git
 
-    git clone https://github.com/lambci/docker-lambda.git
+cd docker-lambda/examples/go1.x
 
-    cd docker-lambda/examples/go1.x
-    
-    # Compile
-    docker run --rm -v "$PWD":/go/src/handler lambci/lambda:build-go1.x \
-    sh -c 'dep ensure && go build handler.go'
-    
-    # Invoke
-    docker run --rm -v "$PWD":/var/task lambci/lambda:go1.x \
-    handler '{"Records": []}'
+# Compile
+docker run --rm -v "$PWD":/go/src/handler lambci/lambda:build-go1.x \
+sh -c 'dep ensure && go build handler.go'
+
+# Invoke
+docker run --rm -v "$PWD":/var/task lambci/lambda:go1.x \
+handler '{"Records": []}'
+```
+
